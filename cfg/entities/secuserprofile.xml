@@ -1,0 +1,25 @@
+<?xml version='1.0' ?>
+<!DOCTYPE entity SYSTEM "cfg/entity.dtd">  
+<entity id="secuserprofile" clazz="org.jpos.ee.pm.security.SECUser">
+      <auditable>true</auditable>
+      <dataAccess class="org.jpos.ee.pm.security.ui.DataAccessUser" />
+      
+      <operations>
+          <operation id="show" display="edit changepassword" />
+          <operation id="edit" display="show" />
+          <operation id="changepassword" display="edit show" />
+      </operations>
+
+      <field id="username" display="" width="100"/>
+      <field id="name">
+          <converters>
+              <converter class="org.jpos.ee.pm.struts.converter.EditStringConverter" operations="edit"/>
+          </converters>
+      </field>
+    <field id="password" display="none" />
+      <field id="email">
+          <converters>
+              <converter class="org.jpos.ee.pm.struts.converter.EditStringConverter" operations="edit"/>
+          </converters>
+      </field>
+</entity>

@@ -1,0 +1,59 @@
+<?xml version='1.0' ?>
+<!DOCTYPE entity SYSTEM "cfg/entity.dtd">  
+<entity id="secuser" clazz="org.jpos.ee.pm.security.core.PMSecurityUser">
+      <auditable>false</auditable>
+      <dataAccess class="org.jpos.ee.pm.security.ui.DataAccessUser" />
+      <operations>
+          <operation id="list" />
+          <operation id="add" scope="general" display="list"/>
+          <operation id="show" display="list edit" />
+          <operation id="edit" display="list show" />
+          <operation id="delete" display="list" confirm="true"/>
+          <operation id="resetpsw" display="list show edit" confirm="true"/>
+      </operations>
+      <field id="username" width="100">
+          <converters>
+              <converter class="org.jpos.ee.pm.struts.converter.EditStringConverter" operations="add"/>
+          </converters>
+          <validator class="org.jpos.ee.pm.validator.LengthValidator">
+            <properties>
+                <property name="min-length" value="1" />
+                <property name="min-length-msg" value="pm.validator.username.toshort"/>
+            </properties>
+        </validator>
+      </field>
+      <field id="name" display="list add show" width="200">
+          <converters>
+              <converter class="org.jpos.ee.pm.struts.converter.EditStringConverter" operations="add" />
+          </converters>
+      </field>
+      <field id="active" width="40" align="center">
+          <converters>
+              <converter class="org.jpos.ee.pm.struts.converter.ShowBooleanConverter" operations="list show"/>
+              <converter class="org.jpos.ee.pm.struts.converter.EditBooleanConverter" operations="add edit"/>
+          </converters>
+      </field>
+    <field id="password" display="add" >
+        <converters>
+              <converter class="org.jpos.ee.pm.struts.converter.EditPasswordConverter" operations="add"/>
+          </converters>
+    </field>
+
+    <field id="email">
+          <converters>
+              <converter class="org.jpos.ee.pm.struts.converter.EditStringConverter" operations="add edit"/>
+          </converters>
+      </field>
+    
+    <field id="groups" display="show add edit list">
+          <converters>
+              <converter class="org.jpos.ee.pm.struts.converter.EditCollectionConverter" operations="add edit">
+                <properties>
+                    <property name="filter" value="" />
+                    <property name="entity" value="secusergroup" />
+                    <property name="collection-class" value="java.util.ArrayList" />
+                </properties>
+              </converter>
+          </converters>
+    </field>
+</entity>
