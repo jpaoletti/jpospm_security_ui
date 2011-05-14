@@ -1,6 +1,6 @@
 <%--
  * jPOS Presentation Manager [http://jpospm.blogspot.com]
- * Copyright (C) 2010 Jeronimo Paoletti [jeronimo.paoletti@gmail.com]
+ * Copyright (C) 2011 Jeronimo Paoletti [jeronimo.paoletti@gmail.com]
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,11 +18,11 @@
 <%@include file="../inc/inc-full.jsp" %>
 <pm:page title="titles.add">
     <div id="add" class="boxed">
-        <pm:pmtitle entity="${entity}" operation="${operation}" />
-        <pm:operations labels="true" />
+        <pm:pmtitle entity="${entity}" operation="${ctx.operation}" />
+        <pm:operations labels="true" operations="${ctx.map.operations.operations}"/>
         <div class="content">
-        <pm:message key="pm.security.ui.generatedpsw.user" arg0="${username}" /><br/>
-        <pm:message key="pm.security.ui.generatedpsw.psw" arg0="${generatedpsw}" />
+        <pm:message key="pm.security.ui.generatedpsw.user" arg0="${ctx.map.username}" /><br/>
+        <pm:message key="pm.security.ui.generatedpsw.psw" arg0="${ctx.map.generatedpsw}" />
         </div>
         <html:errors />
     </div>
