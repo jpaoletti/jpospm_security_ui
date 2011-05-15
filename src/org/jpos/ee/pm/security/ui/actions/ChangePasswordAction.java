@@ -29,7 +29,7 @@ public class ChangePasswordAction extends ActionSupport {
     protected void doExecute(PMStrutsContext ctx) throws PMException {
 
         final ChangePassword op = new ChangePassword("changepassword");
-        if (!op.excecute(ctx)) {
+        if (!op.execute(ctx)) {
             throw new PMForwardException(CONTINUE);
         }
     }

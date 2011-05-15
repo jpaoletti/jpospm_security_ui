@@ -10,6 +10,6 @@ public class ResetPasswordAction extends ActionSupport {
     @Override
     protected void doExecute(PMStrutsContext ctx) throws PMException {
         final ResetPassword op = new ResetPassword("resetpsw");
-        op.excecute(ctx);
+        op.execute(ctx);
     }
 }
