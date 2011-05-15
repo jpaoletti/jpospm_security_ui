@@ -1,33 +1,42 @@
+<%--
+ * jPOS Presentation Manager [http://jpospm.blogspot.com]
+ * Copyright (C) 2011 Jeronimo Paoletti [jeronimo.paoletti@gmail.com]
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *--%>
 <%@include file="../inc/inc-full.jsp" %>
-<bean:define id="entity_instance" name="es" property="selected" />
-<script src="${es.context_path}/js/md5.js" type="text/javascript"></script>
-<script src="${es.context_path}/js/cookies.js" type="text/javascript"></script>
-<script src="${es.context_path}/js/encrypt.js" type="text/javascript"></script>
 <pm:page title="titles.add">
     <div id="add" class="boxed">
-        <pm:pmtitle entity="${entity}" operation="${operation}" />
-        <pm:operations labels="true" />
+        <pm:pmtitle entity="${entity}" operation="${ctx.operation}" />
+        <pm:operations labels="true" operations="${ctx.map.operations.operations}"/>
         <div class="content">
-            <form method="post" onsubmit="return encrypt(this.username, this.actual);">
+            <form action=""  method="GET">
                 <fieldset>
                     <input type="hidden" value="1" name="finish" />
-                    <input type="hidden" value="${user.username}" name="username">
                     <table id="box-table-a">
                         <tbody id="list_body" >
                             <tr>
                                 <th scope="row" width="175px"><bean:message key="chpass.actual" /></th>
-                                <td><input type="password" name="actual" id="actual" value=""><br/>
-                                    <html:errors property="actual" /></td>
+                                <td><input type="password" name="actual" id="actual" value=""></td>
                             </tr>
                             <tr>
                                 <th scope="row" width="175px"><bean:message key="chpass.newpass" /></th>
-                                <td><input type="password" name="newpass" id="newpass" value=""><br/>
-                                    <html:errors property="newpass" /></td>
+                                <td><input type="password" name="newpass" id="newpass" value=""></td>
                             </tr>
                             <tr>
-                                <th scope="row" width="175px"><bean:message key="chpass.newrep" /></th>
-                                <td><input type="password" name="newrep" id="newrep" value=""><br/>
-                                    <html:errors property="newrep" /></td>
+                                <th scope="row" width="175px"><bean:message key="chpass.newrep"/></th>
+                                <td><input type="password" name="newrep" id="newrep" value=""></td>
                             </tr>
                         </tbody>
                         <tfoot>

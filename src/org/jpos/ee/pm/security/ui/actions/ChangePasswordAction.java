@@ -17,78 +17,20 @@
  */
 package org.jpos.ee.pm.security.ui.actions;
 
-import org.jpos.ee.pm.core.EntityInstanceWrapper;
-import org.jpos.ee.pm.core.PMContext;
 import org.jpos.ee.pm.core.PMException;
-import org.jpos.ee.pm.core.PMMessage;
-import org.jpos.ee.pm.security.core.InvalidPasswordException;
-import org.jpos.ee.pm.security.core.PMSecurityConnector;
-import org.jpos.ee.pm.security.core.PMSecurityException;
-import org.jpos.ee.pm.security.core.PMSecurityService;
-import org.jpos.ee.pm.security.core.PMSecurityUser;
+import org.jpos.ee.pm.security.core.operations.ChangePassword;
 import org.jpos.ee.pm.struts.PMForwardException;
 import org.jpos.ee.pm.struts.PMStrutsContext;
-import org.jpos.ee.pm.struts.actions.RowActionSupport;
+import org.jpos.ee.pm.struts.actions.ActionSupport;
 
-public class ChangePasswordAction extends RowActionSupport {
+public class ChangePasswordAction extends ActionSupport {
 
-    /** Opens an hibernate transaction before doExecute*/
-    protected boolean openTransaction() { return true;    }
-    /**Makes the operation generate an audithory entry*/
-    protected boolean isAudited() {    return false; }
-    /**Forces execute to check if any user is logged in*/
-    protected boolean checkUser(){     return true;}
-    /**Forces execute to check if there is an entity defined in parameters*/
-    protected boolean checkEntity(){ return true; }
-    
-    public boolean testSelectedExist(){ return false; }
-    
-    protected boolean prepare(PMStrutsContext ctx) throws PMException {
-        super.prepare(ctx);
-        ctx.getEntityContainer().setSelected( new EntityInstanceWrapper(ctx.getUser()) );
-        if(ctx.getRequest().getParameter(FINISH)==null){
-            throw new PMForwardException(CONTINUE);
-        }
-        return true;
-    }
-    
+    @Override
     protected void doExecute(PMStrutsContext ctx) throws PMException {
-        ChangePasswordForm f = (ChangePasswordForm) ctx.getForm();
-        PMSecurityUser u = (PMSecurityUser) ctx.getSelected().getInstance();
-        try {
-            if(f.getFinish()!=null){
-                validate(u, ctx, f);
-            }
-            if(!ctx.getErrors().isEmpty()) 
-                throw new PMException();
-            getConnector(ctx).changePassword(u.getUsername(), f.getActual(), f.getNewpass() );
-        } catch (InvalidPasswordException e){
-            throw new PMException("pm_security.password.invalid");
-        } catch (PMSecurityException e) {
-            e.printStackTrace();
-            throw e;
-        }
-        
-        if(!ctx.getErrors().isEmpty()) 
-            throw new PMException();
-        
-    }
-    private PMSecurityConnector getConnector(PMContext ctx) {
-        return PMSecurityService.getService().getConnector(ctx);
-    }
-    private void validate(PMSecurityUser user, PMContext ctx, ChangePasswordForm form) {
-        if(form.getActual()==null || form.getActual().trim().compareTo("")==0) 
-            ctx.getErrors().add(new PMMessage("actual","chpass.actual.not.null"));
-        if(form.getNewpass()==null || form.getNewpass().trim().compareTo("")==0) 
-            ctx.getErrors().add(new PMMessage("newpass","chpass.newpass.not.null"));
-        if(form.getNewrep()==null|| form.getNewrep().trim().compareTo("")==0) 
-            ctx.getErrors().add(new PMMessage("newrep","chpass.newrep.not.null"));
-        if(ctx.getErrors().isEmpty()){
-            if(form.getNewpass().compareTo(form.getNewrep())!=0) 
-                ctx.getErrors().add(new PMMessage("newrep","chpass.newrep.diferent"));
-            
-            if(form.getNewpass().compareTo(form.getActual())==0) 
-                ctx.getErrors().add(new PMMessage("newrep","chpass.repeated.passw"));
+
+        final ChangePassword op = new ChangePassword("changepassword");
+        if (!op.excecute(ctx)) {
+            throw new PMForwardException(CONTINUE);
         }
     }
 }
