@@ -40,7 +40,7 @@
                             </tr>
                         </tbody>
                         <tfoot>
-                            <tr><td colspan="2"><html:errors /></td></tr>
+                            <tr><td colspan="2"><pm:errors /></td></tr>
                         </tfoot>
                     </table>
                     <html:submit styleId="${entity.id}_submit">

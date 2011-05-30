@@ -24,7 +24,7 @@
         <pm:message key="pm.security.ui.generatedpsw.user" arg0="${ctx.map.username}" /><br/>
         <pm:message key="pm.security.ui.generatedpsw.psw" arg0="${ctx.map.generatedpsw}" />
         </div>
-        <html:errors />
+        <pm:errors />
     </div>
 </pm:page>
 
