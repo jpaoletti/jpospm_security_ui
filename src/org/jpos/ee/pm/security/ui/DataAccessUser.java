@@ -23,74 +23,61 @@ import org.jpos.ee.pm.core.EntityFilter;
 import org.jpos.ee.pm.core.PMContext;
 import org.jpos.ee.pm.core.PMException;
 import org.jpos.ee.pm.security.core.PMSecurityConnector;
-import org.jpos.ee.pm.security.core.PMSecurityException;
 import org.jpos.ee.pm.security.core.PMSecurityService;
 import org.jpos.ee.pm.security.core.PMSecurityUser;
 
 public class DataAccessUser implements DataAccess {
 
-    public void delete(PMContext ctx, Object object)  throws PMException {
-        PMSecurityUser instance  = (PMSecurityUser)object;
-        try {
-            getConnector(ctx).removeUser(instance);
-        } catch (PMSecurityException ex) {
-            ctx.getPresentationManager().error(ex);
-        }
+    @Override
+    public void delete(PMContext ctx, Object object) throws PMException {
+        PMSecurityUser instance = (PMSecurityUser) object;
+        getConnector(ctx).removeUser(instance);
     }
-    
+
+    @Override
     public Object refresh(PMContext ctx, Object o) throws PMException {
-        if(o!=null){
-            PMSecurityUser instance  = (PMSecurityUser)o;
+        if (o != null) {
+            PMSecurityUser instance = (PMSecurityUser) o;
             return getItem(ctx, "", instance.getUsername());
-        }else{
+        } else {
             return null;
         }
     }
 
-    public Object getItem(PMContext ctx, String property, String value) throws PMException{
-        try {
-            return getConnector(ctx).getUser(value);
-        } catch (Exception e) {
-            ctx.getPresentationManager().error(e);
-            return null;
-        }
+    @Override
+    public Object getItem(PMContext ctx, String property, String value) throws PMException {
+        return getConnector(ctx).getUser(value);
     }
 
     private PMSecurityConnector getConnector(PMContext ctx) {
         return PMSecurityService.getService().getConnector(ctx);
     }
 
-    public List<?> list(PMContext ctx, EntityFilter filter, Integer from, Integer count) throws PMException{
-        try {
-            List<PMSecurityUser> list = getConnector(ctx).getUsers();
-            Integer f = (from == null)?0:from;
-            Integer t = (count == null)?list.size():(from+count > list.size()?list.size():from+count);
-            return list.subList(f, t);
-        } catch (PMSecurityException e) {
-            ctx.getPresentationManager().error(e);
-            return null;
-        }
+    @Override
+    public List<?> list(PMContext ctx, EntityFilter filter, Integer from, Integer count) throws PMException {
+        List<PMSecurityUser> list = getConnector(ctx).getUsers();
+        Integer f = (from == null) ? 0 : from;
+        Integer t = (count == null) ? list.size() : (from + count > list.size() ? list.size() : from + count);
+        return list.subList(f, t);
     }
 
-    public void update(PMContext ctx, Object instance)  throws PMException{
-        try {
-            getConnector(ctx).updateUser((PMSecurityUser)instance);
-        } catch (PMSecurityException e) {
-            ctx.getPresentationManager().error(e);
-        }
+    @Override
+    public void update(PMContext ctx, Object instance) throws PMException {
+        getConnector(ctx).updateUser((PMSecurityUser) instance);
     }
 
-    public void add(PMContext ctx, Object instance)  throws PMException{
-        try {
-            getConnector(ctx).addUser((PMSecurityUser)instance);
-        } catch (PMSecurityException e) {
-            ctx.getPresentationManager().error(e);
-        }
+    @Override
+    public void add(PMContext ctx, Object instance) throws PMException {
+        getConnector(ctx).addUser((PMSecurityUser) instance);
+
     }
+
+    @Override
     public Long count(PMContext ctx) throws PMException {
         return new Long(list(ctx, null, null, null).size());
     }
 
+    @Override
     public EntityFilter createFilter(PMContext ctx) throws PMException {
         return new EntityFilter();
     }
