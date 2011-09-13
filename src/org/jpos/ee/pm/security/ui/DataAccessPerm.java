@@ -20,6 +20,7 @@ package org.jpos.ee.pm.security.ui;
 import java.util.List;
 
 import org.jpos.ee.pm.core.DataAccess;
+import org.jpos.ee.pm.core.Entity;
 import org.jpos.ee.pm.core.EntityFilter;
 import org.jpos.ee.pm.core.PMContext;
 import org.jpos.ee.pm.core.PMException;
@@ -30,26 +31,33 @@ import org.jpos.ee.pm.security.core.PMSecurityService;
 
 public class DataAccessPerm implements DataAccess {
 
-    public void delete(PMContext ctx, Object object) {}
+    private Entity entity;
 
-    public Object getItem(PMContext ctx, String property, String value)  throws PMException{
+    @Override
+    public void delete(PMContext ctx, Object object) {
+    }
+
+    @Override
+    public Object getItem(PMContext ctx, String property, String value) throws PMException {
         return null;
     }
-    
+
+    @Override
     public Object refresh(PMContext ctx, Object o) throws PMException {
-        if(o!=null){
-            PMSecurityPermission instance  = (PMSecurityPermission)o;
+        if (o != null) {
+            PMSecurityPermission instance = (PMSecurityPermission) o;
             return getItem(ctx, "", instance.getName());
-        }else{
+        } else {
             return null;
         }
     }
 
-    public List<?> list(PMContext ctx, EntityFilter filter, Integer from, Integer count)  throws PMException{
+    @Override
+    public List<?> list(PMContext ctx, EntityFilter filter, Integer from, Integer count) throws PMException {
         try {
             List<PMSecurityPermission> list = getConnector(ctx).getPermissions();
-            Integer f = (from == null)?0:from;
-            Integer t = (count == null)?list.size():(from+count > list.size()?list.size():from+count);
+            Integer f = (from == null) ? 0 : from;
+            Integer t = (count == null) ? list.size() : (from + count > list.size() ? list.size() : from + count);
             return list.subList(f, t);
         } catch (PMSecurityException e) {
             ctx.getPresentationManager().error(e);
@@ -57,19 +65,35 @@ public class DataAccessPerm implements DataAccess {
         }
     }
 
-    public void update(PMContext ctx, Object instance) throws PMException  {}
+    @Override
+    public void update(PMContext ctx, Object instance) throws PMException {
+    }
 
-    public void add(PMContext ctx, Object instance)  throws PMException {}
-    
+    @Override
+    public void add(PMContext ctx, Object instance) throws PMException {
+    }
+
     private PMSecurityConnector getConnector(PMContext ctx) {
         return PMSecurityService.getService().getConnector(ctx);
     }
+
+    @Override
     public Long count(PMContext ctx) throws PMException {
         return new Long(list(ctx, null, null, null).size());
     }
 
+    @Override
     public EntityFilter createFilter(PMContext ctx) throws PMException {
         return new EntityFilter();
     }
-    
+
+    @Override
+    public void setEntity(Entity entity) {
+        this.entity = entity;
+    }
+
+    @Override
+    public Entity getEntity() {
+        return entity;
+    }
 }

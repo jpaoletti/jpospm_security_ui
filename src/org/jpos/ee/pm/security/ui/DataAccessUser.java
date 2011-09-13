@@ -19,6 +19,7 @@ package org.jpos.ee.pm.security.ui;
 
 import java.util.List;
 import org.jpos.ee.pm.core.DataAccess;
+import org.jpos.ee.pm.core.Entity;
 import org.jpos.ee.pm.core.EntityFilter;
 import org.jpos.ee.pm.core.PMContext;
 import org.jpos.ee.pm.core.PMException;
@@ -27,6 +28,7 @@ import org.jpos.ee.pm.security.core.PMSecurityService;
 import org.jpos.ee.pm.security.core.PMSecurityUser;
 
 public class DataAccessUser implements DataAccess {
+    private Entity entity;
 
     @Override
     public void delete(PMContext ctx, Object object) throws PMException {
@@ -80,5 +82,15 @@ public class DataAccessUser implements DataAccess {
     @Override
     public EntityFilter createFilter(PMContext ctx) throws PMException {
         return new EntityFilter();
+    }
+
+    @Override
+    public void setEntity(Entity entity) {
+        this.entity = entity;
+    }
+
+    @Override
+    public Entity getEntity() {
+        return entity;
     }
 }
