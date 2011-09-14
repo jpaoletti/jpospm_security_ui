@@ -22,6 +22,7 @@ import java.util.List;
 import org.jpos.ee.pm.core.DataAccess;
 import org.jpos.ee.pm.core.Entity;
 import org.jpos.ee.pm.core.EntityFilter;
+import org.jpos.ee.pm.core.ListSort;
 import org.jpos.ee.pm.core.PMContext;
 import org.jpos.ee.pm.core.PMException;
 import org.jpos.ee.pm.security.core.PMSecurityConnector;
@@ -63,7 +64,7 @@ public class DataAccessGroup implements DataAccess {
     }
 
     @Override
-    public List<?> list(PMContext ctx, EntityFilter filter, Integer from, Integer count) throws PMException {
+    public List<?> list(PMContext ctx, EntityFilter filter, ListSort sort, Integer from, Integer count) throws PMException {
         try {
             List<PMSecurityUserGroup> list = getConnector(ctx).getGroups();
             Integer f = (from == null) ? 0 : from;
@@ -99,7 +100,7 @@ public class DataAccessGroup implements DataAccess {
 
     @Override
     public Long count(PMContext ctx) throws PMException {
-        return new Long(list(ctx, null, null, null).size());
+        return new Long(list(ctx, null, null, null, null).size());
     }
 
     @Override
