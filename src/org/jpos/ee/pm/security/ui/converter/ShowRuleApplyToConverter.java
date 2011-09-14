@@ -25,7 +25,7 @@ import org.jpos.ee.pm.core.EntityInstanceWrapper;
 import org.jpos.ee.pm.core.Field;
 import org.jpos.ee.pm.core.Operation;
 
-public class ShowRuleApplyToConverter extends ShowStringConverter{
+public class ShowRuleApplyToConverter extends ShowStringConverter {
 
     public Object build(Entity entity, Field field, Operation operation,
             EntityInstanceWrapper einstance, Object value)
@@ -34,16 +34,16 @@ public class ShowRuleApplyToConverter extends ShowStringConverter{
     }
 
     public String visualize(Entity entity, Field field, Operation operation,
-            EntityInstanceWrapper einstance, String extra)
+            EntityInstanceWrapper einstance)
             throws ConverterException {
         Integer p = (Integer) getValue(einstance, field);
         switch (p) {
-        case 0:
-            return super.visualize("localized_string_converter.jsp?value=pm.secrule.applyTo.username",extra);
-        case 1:
-            return super.visualize("localized_string_converter.jsp?value=pm.secrule.applyTo.password",extra);
-        default:
-            return p.toString();
+            case 0:
+                return super.visualize("localized_string_converter.jsp?value=pm.secrule.applyTo.username");
+            case 1:
+                return super.visualize("localized_string_converter.jsp?value=pm.secrule.applyTo.password");
+            default:
+                return p.toString();
         }
     }
 }
