@@ -1,8 +1,7 @@
 <%@include file="../inc/inc-full.jsp" %>
 <pm:page title="titles.add">
     <div id="add" class="boxed">
-        <pm:pmtitle entity="${entity}" operation="${ctx.operation}" />
-        <pm:operations labels="true" operations="${ctx.map.operations.operations}"/>
+        <pm:std-header ctx="${ctx}" />
         <div class="content">
             <form action=""  method="GET">
                 <fieldset>
@@ -27,7 +26,7 @@
                         </tfoot>
                     </table>
                     <html:submit styleId="${entity.id}_submit">
-                        <pm:message key="pm.security.ui.changepsw.submit" />
+                        <pmfn:message key="pm.security.ui.changepsw.submit" />
                     </html:submit>
                 </fieldset>
             </form>
