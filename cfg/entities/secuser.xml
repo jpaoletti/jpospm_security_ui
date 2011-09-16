@@ -22,9 +22,9 @@
             </properties>
         </validator>
       </field>
-      <field id="name" display="list add show" width="200">
+      <field id="name" display="list add edit show" width="200">
           <converters>
-              <converter class="org.jpos.ee.pm.struts.converter.EditStringConverter" operations="add" />
+              <converter class="org.jpos.ee.pm.struts.converter.EditStringConverter" operations="add edit" />
           </converters>
       </field>
       <field id="active" width="40" align="center">
