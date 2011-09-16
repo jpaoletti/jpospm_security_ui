@@ -9,15 +9,15 @@
                     <table id="box-table-a">
                         <tbody id="list_body" >
                             <tr>
-                                <th scope="row" width="175px"><bean:message key="chpass.actual" /></th>
+                                <th scope="row" width="175px"><pmfn:message key="chpass.actual" /></th>
                                 <td><input type="password" name="actual" id="actual" value=""></td>
                             </tr>
                             <tr>
-                                <th scope="row" width="175px"><bean:message key="chpass.newpass" /></th>
+                                <th scope="row" width="175px"><pmfn:message key="chpass.newpass" /></th>
                                 <td><input type="password" name="newpass" id="newpass" value=""></td>
                             </tr>
                             <tr>
-                                <th scope="row" width="175px"><bean:message key="chpass.newrep"/></th>
+                                <th scope="row" width="175px"><pmfn:message key="chpass.newrep"/></th>
                                 <td><input type="password" name="newrep" id="newrep" value=""></td>
                             </tr>
                         </tbody>
@@ -25,9 +25,7 @@
                             <tr><td colspan="2"><div class="entity_message_container_${entity.id}">&nbsp;</div></td></tr>
                         </tfoot>
                     </table>
-                    <html:submit styleId="${entity.id}_submit">
-                        <pmfn:message key="pm.security.ui.changepsw.submit" />
-                    </html:submit>
+                    <input type="submit" value="<pmfn:message key="pm.security.ui.changepsw.submit" />" id="${entity.id}_submit"/>
                 </fieldset>
             </form>
         </div>
